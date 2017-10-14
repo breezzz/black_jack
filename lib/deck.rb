@@ -1,12 +1,14 @@
+require_relative 'card'
+
 class Deck
+  attr_reader :cards
+
   def initialize
-# new deck of 52 cards
-    s = ""
+    @cards = []
     Card.suits.each_key do |suit|
       Card.values.each do |value|
-        s += "#{value}#{Card.suits[suit]}\t"
+        @cards << Card.new(suit: suit, value: value)
       end
     end
-    print s
   end
 end
