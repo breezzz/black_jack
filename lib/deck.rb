@@ -4,8 +4,8 @@ class Deck
   def initialize
     @cards = []
     Card.suits.each_key do |suit|
-      Card.values.each do |value|
-        @cards << Card.new(suit: suit, value: value)
+      Card.ranks.each do |rank|
+        @cards << Card.new(suit: suit, rank: rank)
       end
     end
   end

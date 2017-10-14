@@ -1,7 +1,7 @@
 class Hand
   attr_reader :name, :user, :cards, :money
 
-  def initialize (name, user = true)
+  def initialize(name, user = true)
     @name = name
     @user = user
     @cards = []
@@ -24,7 +24,7 @@ class Hand
   def check_points
     return if @cards.empty?
     @points = 0
-    aces =  @cards.count { |card| card.value == 'A' }
+    aces =  @cards.count { |card| card.rank == 'A' }
     @points += 11 + 1 * (aces - 1) if aces > 0
     @cards.each do |card|
       @points += card.cost if card.cost.is_a? Integer

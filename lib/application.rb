@@ -1,24 +1,13 @@
 class Application
-  def screen(user, dealer, open = false)
-    system('clear')
-    puts '#-------------------#'
-    puts "#{user.name} cards:"
-    user.cards.map {|card| print "#{card.name}\t"}
-    puts ''
-    puts "Очков   #{user.check_points}"
-    puts "Кошелек   #{user.money}"
-    puts '#-------------------#'
-    puts "#{dealer.name} cards:"
-    case open
-      when true
-        dealer.cards.map {|card| print "#{card.name}\t"}
-        puts ''
-        puts "Очков   #{dealer.check_points}"
-      else
-        dealer.cards.map {|card| print "*\t"}
-        puts ''
+  def screen(hand, open = false)
+    puts "#{hand.name} cards:"
+    if open
+      hand.cards.map { |card| print "#{card.name}\t" }
+      puts "\nОчков #{hand.check_points}"
+    else
+      hand.cards.map { print "*\t" }
+      puts ''
     end
-    puts "Кошелек   #{dealer.money}"
-    puts '#-------------------#'
+    puts "Кошелек #{hand.money}\n#-------------------#"
   end
 end

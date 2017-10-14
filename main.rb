@@ -1,4 +1,5 @@
-Dir[File.dirname(__FILE__) + '/lib/*.rb'].each {|file| require file }
+#! /usr/bin/env ruby
+Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
 system('clear')
 puts 'Добро пожаловать в игру Black Jack'
@@ -13,7 +14,8 @@ loop do
   master.bet
   dealer.get_card(deck.take_card)
   dealer.bet
-  app.screen(master, dealer, true)
+  system('clear')
+  app.screen(master, true)
+  app.screen(dealer, true)
   break if gets.chomp == 'qwe'
 end
-

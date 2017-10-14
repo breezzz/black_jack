@@ -1,16 +1,16 @@
 class Card
   SUITS = { heart: '♡', diamond: '♢', spade: '♤', club: '♧' }.freeze
-  VALUES = %w[2 3 4 5 6 7 8 9 10 J Q K A].freeze
+  RANKS = %w[2 3 4 5 6 7 8 9 10 J Q K A].freeze
 
-  attr_reader :suit, :value, :name
+  attr_reader :suit, :rank, :name
 
   class << self
     def suits
       SUITS
     end
 
-    def values
-      VALUES
+    def ranks
+      RANKS
     end
 
     def graf_suit(suit)
@@ -20,21 +20,21 @@ class Card
 
   def initialize(options)
     @suit = options[:suit]
-    @value = options[:value]
+    @rank = options[:rank]
     validate!
-    @name = @value + self.class.graf_suit(@suit)
+    @name = @rank + self.class.graf_suit(@suit)
   end
 
   def cost
-    return 'ace' if @value == 'A'
-    return 10 if @value.to_i.zero?
-    @value.to_i
+    return 'ace' if @rank == 'A'
+    return 10 if @rank.to_i.zero?
+    @rank.to_i
   end
 
   private
 
   def validate!
     raise 'Неправильная масть' unless self.class.suits.key? @suit
-    raise 'Неправильнoe значение' unless self.class.values.include? @value
+    raise 'Неправильнoe значение' unless self.class.ranks.include? @rank
   end
 end
