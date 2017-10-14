@@ -18,12 +18,12 @@ black jack project for thinknetica
     * points
     * Hand.bet
     * Hand.take_money
+    * cards.cost
     
   * Class Deck - 52 of Cards
     * deck.new
     * deck.shuffle
     * deck.take_card(quantity = 1)
-    * deck.cost
     
   * Class Card
     * {heart: '♡', diamond: '♢', spade: '♤', club: '♧'}
