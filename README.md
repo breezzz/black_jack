@@ -16,9 +16,16 @@ black jack project for thinknetica
     * cards
     * bank
     * points
+    * Hand.bet
+    * Hand.take_money
     
   * Class Deck - 52 of Cards
-  * Возможно Class Card
+    * deck.new
+    * deck.shuffle
+    * deck.take_card(quantity = 1)
+    * deck.cost
+    
+  * Class Card
     * {heart: '♡', diamond: '♢', spade: '♤', club: '♧'}
     * [2,3,4,5,6,7,8,9,10,J,Q,K,A]
 
