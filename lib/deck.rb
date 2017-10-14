@@ -15,4 +15,8 @@ class Deck
   def shuffle
     cards.shuffle!.reverse!.shuffle!
   end
+
+  def take_card
+    cards.pop
+  end
 end

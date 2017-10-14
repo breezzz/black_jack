@@ -23,7 +23,7 @@ black jack project for thinknetica
   * Class Deck - 52 of Cards
     * deck.new
     * deck.shuffle
-    * deck.take_card(quantity = 1)
+    * deck.take_card
     
   * Class Card
     * {heart: '♡', diamond: '♢', spade: '♤', club: '♧'}
