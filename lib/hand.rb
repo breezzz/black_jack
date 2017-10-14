@@ -1,5 +1,3 @@
-require_relative 'deck'
-
 class Hand
   attr_reader :name, :user, :cards, :money
 
@@ -13,6 +11,14 @@ class Hand
 
   def get_card(card)
     @cards << card
+  end
+
+  def bet(money = 10)
+    @money -= money if @money > 0
+  end
+
+  def get_money(money)
+    @money += money
   end
 
   def check_points

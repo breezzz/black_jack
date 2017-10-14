@@ -1,40 +1,19 @@
-require_relative './lib/hand'
+Dir[File.dirname(__FILE__) + '/lib/*.rb'].each {|file| require file }
 
-def screen(user, dealer, open = false)
-  system('clear')
-  puts open.class
-  puts '#-------------------#'
-  puts 'YOUR CARDS:'
-  user.cards.map {|card| print "#{card.name}\t"}
-  puts ''
-  puts "Очков   #{user.check_points}"
-  puts "Кошелек   #{user.money}"
-  puts '#-------------------#'
-  puts 'Dealer CARDS:'
-  case open
-    when true
-      dealer.cards.map {|card| print "#{card.name}\t"}
-      puts ''
-      puts "Очков   #{dealer.check_points}"
-    else
-      dealer.cards.map {|card| print "*\t"}
-      puts ''
-  end
-  puts "Кошелек   #{dealer.money}"
-  puts '#-------------------#'
-end
-
-master = Hand.new('Ruslan')
+system('clear')
+puts 'Добро пожаловать в игру Black Jack'
+puts 'Введите ваше имя:'
+master = Hand.new(gets.chomp)
 dealer = Hand.new('JoJo', false)
 deck = Deck.new
 deck.shuffle
+app = Application.new
 loop do
   master.get_card(deck.take_card)
+  master.bet
   dealer.get_card(deck.take_card)
-  screen(master, dealer, true)
-#  puts master.cards.inspect
-#  puts "очков   #{master.check_points}"
+  dealer.bet
+  app.screen(master, dealer, true)
   break if gets.chomp == 'qwe'
-#  puts '#---------------------------------#'
 end
 
