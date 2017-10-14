@@ -18,7 +18,6 @@ black jack project for thinknetica
     * points
     * Hand.bet
     * Hand.take_money
-    * cards.cost
     
   * Class Deck - 52 of Cards
     * deck.new
