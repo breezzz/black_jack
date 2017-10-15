@@ -13,11 +13,20 @@ rescue RuntimeError => e
 end
 dealer = Hand.new('JoJo', true)
 loop do
+  if master.money.zero?
+    puts "#{master.name} проиграл все деньги"
+    break
+  end
+  if dealer.money.zero?
+    puts "#{dealer.name} проиграл все деньги"
+    break
+  end
   master.clear_cards
   dealer.clear_cards
   deck = Deck.new
   deck.shuffle
   winner = Application.new.run(master, dealer, deck)
+  break if winner.nil?
   puts "Выигрыш: #{Hand.bank}"
   puts "Победитель: #{winner.name}"
   winner.take_bank
