@@ -5,11 +5,11 @@ system('clear')
 puts 'Добро пожаловать в игру Black Jack'
 puts 'Введите ваше имя:'
 master = Hand.new(gets.chomp)
-dealer = Hand.new('JoJo', false)
-deck = Deck.new
-deck.shuffle
+dealer = Hand.new('JoJo', true)
 app = Application.new
 loop do
+  deck = Deck.new
+  deck.shuffle
   # выдаем две случайные карты каждому и делаем ставки #
   2.times { master.get_card(deck.take_card) }
   master.bet
@@ -22,6 +22,7 @@ loop do
   app.screen(dealer, true)
   # ---------------------------------------------------#
   # выводим меню#
+  app.menu
   #   Пропустить ход
   #   Взять карту если карт меньше 3
   #   Открыть карты

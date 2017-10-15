@@ -1,9 +1,9 @@
 class Hand
-  attr_reader :name, :user, :cards, :money
+  attr_reader :name, :ai, :cards, :money
 
-  def initialize(name, user = true)
+  def initialize(name, ai = false)
     @name = name
-    @user = user
+    @ai = ai
     @cards = []
     @points = 0
     @money = 100
