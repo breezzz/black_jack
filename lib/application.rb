@@ -13,26 +13,20 @@ class Application
 
   def menu
     @items = ['Пропустить ход', 'Взять карту', 'Открыть карты'].freeze
-
-    @items.each.with_index(1) do |item, index|
-      print "#{index}. #{item}\t"
-      #print "#{key}. #{@items[key].dig(:item)}\t"
-    end
+    @items.each.with_index(1) { |item, index| print "#{index}. #{item}\t" }
     puts "\nДействие: "
     gets.chomp.to_i
   end
 
-
   def take_card(hand, deck)
-    hand.get_card(deck.take_card) if hand.cards.size < 3
+    hand.take_card(deck.take_card) if hand.cards.size < 3
   end
-
 
   def run(master, dealer, deck)
     2.times { take_card(master, deck) }
-    master.bet
+    master.bet(30)
     2.times { take_card(dealer, deck) }
-    dealer.bet
+    dealer.bet(30)
     # выводим результат #
     system('clear')
     puts "Банк: #{Hand.bank}"
@@ -72,9 +66,11 @@ class Application
     return master if dealer.check_points > 21
 
     if dealer.check_points >= master.check_points
-      return dealer
+      dealer
     else
-      return master
+      master
     end
   end
+rescue RuntimeError => e
+  puts e
 end
