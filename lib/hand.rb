@@ -1,5 +1,21 @@
 class Hand
   attr_reader :name, :ai, :cards, :money
+  @bank = 0
+
+  class << self
+    attr_reader :bank
+
+    def add_to_bank(money)
+      @bank += money
+    end
+
+    def get_from_bank
+      money = @bank
+      @bank =0
+      money
+    end
+
+  end
 
   def initialize(name, ai = false)
     @name = name
@@ -13,12 +29,17 @@ class Hand
     @cards << card
   end
 
-  def bet(money = 10)
-    @money -= money if @money > 0
+  def clear_cards
+    @cards = []
   end
 
-  def get_money(money)
-    @money += money
+  def bet(money = 10)
+    @money -= money if @money > 0
+    self.class.add_to_bank(money)
+  end
+
+  def get_bank
+    @money += self.class.get_from_bank
   end
 
   def check_points

@@ -4,42 +4,19 @@ Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 system('clear')
 puts 'Добро пожаловать в игру Black Jack'
 puts 'Введите ваше имя:'
-master = Hand.new(gets.chomp)
+name = gets.chomp
+master = Hand.new(name)
 dealer = Hand.new('JoJo', true)
-app = Application.new
 loop do
+  master.clear_cards
+  dealer.clear_cards
   deck = Deck.new
   deck.shuffle
-  # выдаем две случайные карты каждому и делаем ставки #
-  2.times { master.get_card(deck.take_card) }
-  master.bet
-  2.times { dealer.get_card(deck.take_card) }
-  dealer.bet
-  # ---------------------------------------------------#
-  # выводим результат #
-  system('clear')
-  app.screen(master, true)
-  app.screen(dealer, true)
-  # ---------------------------------------------------#
-  # выводим меню#
-  app.menu
-  #   Пропустить ход
-  #   Взять карту если карт меньше 3
-  #   Открыть карты
-  #
-  # Если карт стает 3 у кого-либо - карты открыть автоматически
-  #
-  # Ходы дилера:
-  #   Пропустить ход
-  #   Взять карту если карт меньше 3
-  #
-  # После открытия карт:
-  #   У кого меньше 21 и ближе к 21 тот выиграл
-  #   У кого больше 21 - проиграл
-  #   Сумма банка переходит в выигравшему
-  #
-  # Спросить играть снова или выход
-  #   Если играть снова банк не обнулять, выдать новую колоду
-  #---------------------------------------------------#
-  break if gets.chomp == 'exit'
+  winner = Application.new.run(master, dealer, deck)
+  puts "Выигрыш: #{Hand.bank}"
+  puts "Победитель: #{winner.name}"
+  winner.get_bank
+  puts "Кошелек: #{winner.money}"
+  puts '1 для выхода, любая клавиша для продолжения'
+  break if gets.chomp == '1'
 end

@@ -12,21 +12,69 @@ class Application
   end
 
   def menu
-    @items = {
-        '1': { item: 'Пропустить ход', method: 'next_move' },
-        '2': { item: 'Взять карту', method: 'take_card' },
-        '3': { item: 'Открыть карты', method: 'open_cards' }
-    }
+    @items = ['Пропустить ход', 'Взять карту', 'Открыть карты'].freeze
 
-    @items.each_key do |key|
-      print "#{key}. #{@items[key].dig(:item)}\t"
+    @items.each.with_index(1) do |item, index|
+      print "#{index}. #{item}\t"
+      #print "#{key}. #{@items[key].dig(:item)}\t"
     end
     puts "\nДействие: "
-    user_enter = gets.chomp.to_sym
-    if @items.keys.include? user_enter
-      print "OK #{@items[user_enter].dig(:method)}\n"
+    gets.chomp.to_i
+  end
+
+
+  def take_card(hand, deck)
+    hand.get_card(deck.take_card) if hand.cards.size < 3
+  end
+
+
+  def run(master, dealer, deck)
+    2.times { take_card(master, deck) }
+    master.bet
+    2.times { take_card(dealer, deck) }
+    dealer.bet
+    # выводим результат #
+    system('clear')
+    puts "Банк: #{Hand.bank}"
+    screen(master, true)
+    screen(dealer)
+    loop do
+      ### user move
+      m = menu
+      puts m
+      break if m == 3
+      take_card(master, deck) if m == 2
+      # выводим результат #
+      system('clear')
+      puts "Банк: #{Hand.bank}"
+      screen(master, true)
+      screen(dealer)
+
+      ### dealer move
+      take_card(dealer, deck) if dealer.check_points <= 11
+      # выводим результат #
+      system('clear')
+      puts "Банк: #{Hand.bank}"
+      screen(master, true)
+      screen(dealer)
+      break if master.cards.size == 3 || dealer.cards.size == 3
+    end
+
+    system('clear')
+    puts 'Game Over:'
+    screen(master, true)
+    screen(dealer, true)
+
+    # check and return winner
+    return dealer if dealer.check_points == 21
+    return master if master.check_points == 21
+    return dealer if master.check_points > 21
+    return master if dealer.check_points > 21
+
+    if dealer.check_points >= master.check_points
+      return dealer
     else
-      print "BAD"
+      return master
     end
   end
 end
